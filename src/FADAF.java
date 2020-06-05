@@ -194,5 +194,4 @@ public class FADAF<K extends Comparable<? super K>, D> {
     public K getMaxKey() {
         return getAllKeys().getLast();
     }
-
 }

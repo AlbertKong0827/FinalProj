@@ -28,7 +28,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
      * @param <K> Generic type of key
      * @param <D> Generic type of data
      */
-
     protected class DAFNode<K extends Comparable<? super K>, D> {
         K key;
         D data;
@@ -184,7 +183,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
      * @return the inserted node object, or null if already exist
      * @throws NullPointerException if key or data is null
      */
-
     public DAFNode<K, D> insert(K key, D data) {
         if(key == null || data == null) {
             throw new NullPointerException();
@@ -245,7 +243,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
      * @return true if found, false otherwise
      * @throws NullPointerException if the key is null
      */
-
     public boolean lookupAny(K key) {
         if(key == null)
             throw new NullPointerException();
@@ -495,16 +492,13 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
             return result;
         }
     }
-
     /* PROVIDED HELPERS, MODIFY WITH CAUTION! */
-
     /**
      * Public helper to remove the given node in BST's remove style.
      *
      * @param cur Node to remove
      * @boolean true always
      */
-
     public boolean remove(DAFNode<K, D> cur) {
         if (cur.dup == null && (cur.par == null || cur.par.dup != cur))
             nKeys--;
@@ -521,8 +515,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         nElems--;
         return true;
     }
-
-
 
     /**
      * Helper to remove node recursively in BST style of replacement by in-order
