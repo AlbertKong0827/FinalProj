@@ -36,7 +36,8 @@ public class HashTable<T> {
             throw new IllegalArgumentException();
         }
         nElems = 0;
-        table = (LinkedList<T>[]) new LinkedList<?>[capacity];
+        //table = (LinkedList<T>[]) new LinkedList<?>[capacity];
+        table = new LinkedList[capacity];
         for(int i=0;i<capacity;i++) {
             table[i] = new LinkedList<T>();
         }
@@ -52,12 +53,12 @@ public class HashTable<T> {
      */
     public boolean insert(T value){
 
-        if(value == null)
+        if(value == null) {
             throw new NullPointerException();
-
-        if(lookup(value) == true)
+        }
+        if(lookup(value) == true) {
             return false;
-
+        }
         //check the loading factor
         if(nElems>table.length * MAX_LOAD_FACTOR) {
             this.rehash();
@@ -78,9 +79,9 @@ public class HashTable<T> {
         if(value==null) {
             throw new NullPointerException();
         }
-        if(lookup(value) == false)
+        if(lookup(value) == false) {
             return false;
-
+        }
         table[this.hashValue(value)].remove(value);
         nElems--;
         return true;
@@ -132,7 +133,6 @@ public class HashTable<T> {
      * Double the capacity of the array and rehash all values.
      */
     @SuppressWarnings("unchecked")
-
     private void rehash() {
         List<T> temp = new ArrayList<T>();
         for(int i=0;i<table.length;i++){
@@ -142,7 +142,8 @@ public class HashTable<T> {
         }
 
         //resize the table
-        table = (LinkedList<T>[]) new LinkedList<?>[this.capacity() * RESIZE_FACTOR];
+        //table = (LinkedList<T>[]) new LinkedList<?>[this.capacity() * RESIZE_FACTOR];
+        table = new LinkedList[capacity()*RESIZE_FACTOR];
         for(int i=0;i<table.length;i++)
             table[i] = new LinkedList<T>();
 
