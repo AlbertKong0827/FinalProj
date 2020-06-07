@@ -35,12 +35,11 @@ public class HashTable<T> {
         if(capacity < MIN_CAPACITY) {
             throw new IllegalArgumentException();
         }
-        nElems = 0;
-        //table = (LinkedList<T>[]) new LinkedList<?>[capacity];
         table = new LinkedList[capacity];
         for(int i=0;i<capacity;i++) {
-            table[i] = new LinkedList<T>();
+            table[i] = new LinkedList();
         }
+        nElems = 0;
     }
 
     /**
@@ -56,13 +55,14 @@ public class HashTable<T> {
         if(value == null) {
             throw new NullPointerException();
         }
-        if(lookup(value) == true) {
+        if(lookup(value)) {
             return false;
         }
-        //check the loading factor
-        if(nElems>table.length * MAX_LOAD_FACTOR) {
+        //check the loading factor, rehash when conditions met
+        if(nElems > table.length*MAX_LOAD_FACTOR) {
             this.rehash();
         }
+
         table[this.hashValue(value)].add(value);
         nElems++;
         return true;
@@ -79,7 +79,7 @@ public class HashTable<T> {
         if(value==null) {
             throw new NullPointerException();
         }
-        if(lookup(value) == false) {
+        if(!lookup(value)) {
             return false;
         }
         table[this.hashValue(value)].remove(value);
@@ -134,18 +134,18 @@ public class HashTable<T> {
      */
     @SuppressWarnings("unchecked")
     private void rehash() {
-        List<T> temp = new ArrayList<T>();
-        for(int i=0;i<table.length;i++){
+        List<T> temp = new ArrayList<>();
+        for(int i=0; i<table.length; i++){
             for (T val: table[i]) {
                 temp.add(val);
             }
         }
 
-        //resize the table
-        //table = (LinkedList<T>[]) new LinkedList<?>[this.capacity() * RESIZE_FACTOR];
+        //resize
         table = new LinkedList[capacity()*RESIZE_FACTOR];
-        for(int i=0;i<table.length;i++)
+        for(int i=0; i<table.length; i++) {
             table[i] = new LinkedList<T>();
+        }
 
         //add every element
         nElems = 0;

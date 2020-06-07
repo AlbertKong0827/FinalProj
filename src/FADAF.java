@@ -69,8 +69,9 @@ public class FADAF<K extends Comparable<? super K>, D> {
             throw new NullPointerException();
         }
         //if exist return false
-        if(DAFTree.lookup(key,data))
+        if(DAFTree.lookup(key,data)) {
             return false;
+        }
         hashTable.insert(key);
         DAFTree.insert(key, data);
         return true;
@@ -192,40 +193,9 @@ public class FADAF<K extends Comparable<? super K>, D> {
      * @return maximum key, or null if no keys stored
      */
     public K getMaxKey() {
-        return getAllKeys().getLast();
+        return (getAllKeys().getLast());
     }
 
     public static  void  main(String args[]){
-        FADAF<Integer, Integer> fadaf = new FADAF(12);
-        fadaf.insert(3 , 1);
-        fadaf.insert(4 , 1);
-
-        fadaf.insert(1 , 1);
-        fadaf.insert(1 , 2);
-        fadaf.insert(1 , 3);
-        fadaf.insert(2 , 1);
-        fadaf.insert(2 , 1);
-
-        fadaf.insert(5 , 1);
-        fadaf.insert(5 , 2);
-        fadaf.insert(7 , 1);
-        fadaf.insert(7 , 2);
-        fadaf.insert(9 , 1);
-        fadaf.insert(9 , 2);
-        fadaf.insert(11 , 1);
-
-        int m = fadaf.size();
-        int n = fadaf.nUniqueKeys();
-
-        boolean b = fadaf.remove(11,2);
-        boolean b1 = fadaf.removeAll(9);
-        b = fadaf.lookupAny(7);
-        b1 = fadaf.lookup(7,1);
-        b1 = fadaf.lookup(7,3);
-
-        LinkedList<Integer> linkedList = fadaf.getAllData(7);
-        LinkedList<Integer> linkedList1 = fadaf.getAllKeys();
-        m = fadaf.getMinKey();
-        n = fadaf.getMaxKey();
     }
 }

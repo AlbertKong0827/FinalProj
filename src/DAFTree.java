@@ -193,7 +193,7 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         }
         this.nElems++;
         if (!lookupAny(key)){
-                this.nKeys++;
+            this.nKeys++;
         }
         DAFNode<K, D> node= new DAFNode<K, D>(key,data);
         //if root is null
@@ -204,7 +204,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
 
         DAFNode<K, D> curr = root;
         while(true){
-            //if smaller
             if(node.key.compareTo(curr.key) < 0){
                 if(curr.left == null){
                     curr.left = node;
@@ -214,8 +213,7 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
                 //go left
                 curr = curr.left;
             }
-            //if bigger
-            else if(node.key.compareTo(curr.key) > 0){
+            else if(node.key.compareTo(curr.key)>0){
                 if(curr.right == null){
                     curr.right = node;
                     node.par = curr;
@@ -224,7 +222,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
                 //go right
                 curr = curr.right;
             }
-            //if equal
             else{
                 if(curr.dup == null){
                     curr.dup = node;
@@ -244,8 +241,9 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
      * @throws NullPointerException if the key is null
      */
     public boolean lookupAny(K key) {
-        if(key == null)
+        if(key == null) {
             throw new NullPointerException();
+        }
         return lookupAnyHelper(root,key);
     }
 
@@ -295,10 +293,12 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         if(node.key == key){
             DAFNode<K, D> curr = node;
             while(curr!=null){
-                if(curr.data == data)
+                if(curr.data == data) {
                     return true;
-                else
+                }
+                else {
                     curr = curr.dup;
+                }
             }
             return false;
         }
@@ -350,7 +350,8 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         }
         //if not contained return an empty linked list
         if(!this.lookupAny(key)) {
-            return new LinkedList<D>();
+            LinkedList<D> resultList = new LinkedList<D>();
+            return resultList;
         }
         DAFNode<K, D> temp = findNodeHelper(root,key);
         LinkedList<D> result = new LinkedList<D>();
@@ -375,7 +376,6 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         if(!this.lookup(key,data)) {
             return false;
         }
-        //delete the node
         DAFNode<K, D> temp = findNodeHelper(root,key);
         DAFNode<K, D> curr = temp;
         while(curr!=null){
@@ -415,7 +415,7 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
         //delete all the nodes in the stack
         while(!stack.empty()){
             DAFNode<K, D> temp2 = stack.peek();
-            this.remove(temp2);
+            remove(temp2);
             stack.pop();
         }
         return true;
@@ -434,7 +434,7 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
      * iterator class that iterates the elements in inorder
      */
     public class DAFTreeIterator implements Iterator<DAFNode<K, D>> {
-        //store the nodes to be visited
+        //use a stack to store values
         public Stack<DAFNode<K, D>> stack;
         /**
          * Initializes a tree iterator instance.
