@@ -59,7 +59,7 @@ public class HashTable<T> {
             return false;
         }
         //check the loading factor, rehash when conditions met
-        if(nElems > table.length*MAX_LOAD_FACTOR) {
+        if(nElems+1 > table.length*MAX_LOAD_FACTOR) {
             this.rehash();
         }
 
