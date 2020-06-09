@@ -465,6 +465,9 @@ public class DAFTree<K extends Comparable<? super K>, D> implements Iterable {
          * @throws NoSuchElementException if the iterator reaches the end of traversal
          */
         public DAFNode<K, D> next() {
+            if (!hasNext()){
+                throw new NoSuchElementException();
+            }
             DAFNode<K, D> result = stack.pop();
             DAFNode<K, D> curr = result;
             //if cur has duplicates, push the duplicates into stack
